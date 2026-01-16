@@ -7,7 +7,6 @@
     <meta name="keywords" content="HTML Forms">
     <meta name="author" content="AL Mendoza">
     <title>Sample Form</title>
-    <!-- updated external css link to show how to share it between repository -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
@@ -17,10 +16,11 @@
         font-family: arial;
         width: 80%;
         margin-left: 10%;
+        background-color: antiquewhite;
         }
 
         .title {
-            color: #ff9900;
+            color: #28282c;
         }
 
         fieldset:nth-child(2) {
@@ -29,12 +29,20 @@
         }
 
         legend {
-            background-color: rgb(0, 0, 0);
-            color: rgb(255, 174, 0);
+            background-color:burlywood;
+            color: #28282cc;
             padding: 5px;
+            border: 5px solid rgb(0,0,0);
+            border-radius: 10px;
         }
         label {
              margin: 5%;
+        }
+
+        h1 {
+          border: 5px solid rgb(0, 0, 0);
+          background-color:burlywood;
+          border-radius: 10px;
         }
 
     </style>
@@ -42,25 +50,25 @@
   <body>
     <section>
       <h1 class="title">Sign-up Page</h1>
-      <form id="dForm" action="registered.html" method="get">
+      <form id="dForm">
         <fieldset>
           <legend>Form</legend><br/>
           <label> Student ID: 
-            <input type="number" name="uname" id="uname" required />
+            <input type="number" name="uname" id="uname" onblur="validateField(this)" required />
           </label><br/><br/>
           <label> Full Name: 
-            <input type="text" name="uname" id="uname" required />
+            <input type="text" name="uname" id="uname" onblur="validateField(this)" required />
           </label><br/><br/>
           <label> Date Of Birth :
-            <input type="date" name="dob" id="dob" />
+            <input type="date" name="dob" id="dob" onblur="validateField(this)" required />
           </label><br/><br/>
           <label> Email :
-            <input type="email" name="dob" id="dob" />
+            <input type="email" name="dob" id="dob" onblur="validateField(this)" required />
           </label><br/><br/>
         </fieldset>
         <fieldset>
           <label> Cell Phone Number :
-            <input type="number" name="dob" id="dob" />
+            <input type="number" name="dob" id="dob" onblur="validateField(this)" required />
           </label><br/><br/>
           <label> Grade Level :
             <select name="gradelvl" id="GradeLevel">
@@ -94,7 +102,7 @@
         <fieldset>
           </label><br/><br/>
           <label> Why do you want to join? : 
-            <textarea name="about" id="about">
+            <textarea name="about" id="about" onblur="validateField(this)" required>
             </textarea>
           </label><br/><br/>
         </fieldset>

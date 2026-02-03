@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Show List of Students Who Signed-Up</title>
+
+<style>
+body{
+    padding:25px;
+    font-family:arial;
+    width:80%;
+    margin-left:10%;
+    background-color:antiquewhite;
+}
+h1{
+    border:5px solid black;
+    background-color:burlywood;
+    border-radius:10px;
+    padding:10px;
+}
+legend{
+    background-color:burlywood;
+    padding:5px;
+    border:3px solid black;
+    border-radius:8px;
+}
+fieldset{
+    margin-top:20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 3px solid black;
+    padding: 8px;
+}
+th {
+    background-color: burlywood;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: burlywood;
+    color: white;
+}
+select { padding:5px; margin:10px 0; }
+</style>
+</head>
+
+<body>
+
+<h1>Students Who Signed-Up</h1>
+
+<fieldset>
+    <legend>Go to Signup</legend>
+    <a href="Q3_2GSectionLastName.html">Signup</a>
+</fieldset>
+
+<br><br>
+<fieldset>
+    <legend>Signups</legend>
+<label>Select Your Club</label>
+<select id="clubFilter">
+<option value="ALL">-- select an option --</option>
+</select>
+
+<p id="total">Total Signup : 0</p>
+
+<table>
+<thead>
+<tr>
+<th>Club</th>
+<th>ID</th>
+<th>Fullname</th>
+<th>Grade</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>Intern|Extern</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+
+<p id="message"></p>
+</fieldset>
+<script>
+const data = JSON.parse(localStorage.getItem("signups")) || [];
+const tableBody = document.getElementById("tableBody");
+const clubFilter = document.getElementById("clubFilter");
+const total = document.getElementById("total");
+const message = document.getElementById("message");
+
+if (data.length === 0) {
+    message.textContent = "No sign-ups saved yet.";
+} else {
+    const clubs = [...new Set(data.map(s => s.club))];
+    clubs.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        clubFilter.appendChild(opt);
+    });
+    display(data);
+}
+
+clubFilter.addEventListener("change", function () {
+    if (this.value === "ALL") display(data);
+    else display(data.filter(s => s.club === this.value));
+});
+
+function display(list) {
+    tableBody.innerHTML = "";
+    list.forEach(s => {
+        tableBody.innerHTML += `
+        <tr>
+            <td>${s.club}</td>
+            <td>${s.id}</td>
+            <td>${s.fullname}</td>
+            <td>${s.grade}</td>
+            <td>${s.email}</td>
+            <td>${s.mobile}</td>
+            <td>${s.type}</td>
+        </tr>`;
+    });
+    total.textContent = "Total Signup : " + list.length;
+}
+</script>
+
+</body>
+</html>
